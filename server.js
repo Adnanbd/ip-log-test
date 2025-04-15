@@ -3,13 +3,16 @@ const axios = require('axios');
 const fs = require('fs');
 const app = express();
 const port = 3000;
+require('dotenv').config();
+
+const token = process.env.IPINFO_TOKEN;
 
 // IP Logger Route
 app.get('/tracker', async (req, res) => {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
     // Get geolocation data
-    const geoApi = `https://ipinfo.io/${ip}/json?token=5ffc02d61128c5`;
+    const geoApi = `https://ipinfo.io/${ip}/json?token=${token}`;
     try {
         const response = await axios.get(geoApi);
         const data = {
